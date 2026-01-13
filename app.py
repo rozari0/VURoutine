@@ -25,6 +25,48 @@ class Semester(str, Enum):
     nighth = 9
 
 
+Sections = {
+    Semester.first: [
+        "A",
+        "B",
+        "C",
+    ],
+    Semester.second: [
+        "A",
+        "B",
+        "C",
+    ],
+    Semester.third: [
+        "A",
+        "B",
+        "C",
+    ],
+    Semester.fourth: [
+        "A",
+        "B",
+        "C",
+    ],
+    Semester.fifth: [
+        "A",
+        "B",
+    ],
+    Semester.sixth: [
+        "A",
+        "B",
+    ],
+    Semester.seventh: [
+        "A",
+        "B",
+    ],
+    Semester.eighth: [
+        "A",
+        "B",
+    ],
+    Semester.nighth: [
+        "A",
+    ],
+}
+
 GIDS = {
     Semester.first: 0,
     Semester.second: 1739684797,
@@ -53,11 +95,11 @@ class DaySchedule(RootModel[dict[str, TimeSlot]]):
 
 
 class WeeklySchedule(BaseModel):
+    Sunday: DaySchedule
     Monday: DaySchedule
     Tuesday: DaySchedule
     Wednesday: DaySchedule
     Thursday: DaySchedule
-    Sunday: DaySchedule
 
 
 def get_routine_data(url):
@@ -136,3 +178,18 @@ def get_routine(semester: Semester) -> WeeklySchedule:
     url_with_gid = f"{url}&gid={GIDS[semester]}"
     routine_data = get_routine_data(url_with_gid)
     return routine_data
+
+
+@app.get(
+    "/cse/sections/",
+    response_model=dict[int, list[str]],
+    tags=["CSE Routine"],
+    summary="Get Sections for a Semester",
+)
+def get_sections(semester: Semester | None = None):
+    if semester:
+        return {
+            semester: Sections.get(semester, []),
+        }
+
+    return Sections

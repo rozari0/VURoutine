@@ -1,8 +1,10 @@
+import re
 from enum import Enum
 from typing import Optional
 
 import pandas as pd
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.inmemory import InMemoryBackend
 from fastapi_cache.decorator import cache
@@ -35,7 +37,15 @@ GIDS = {
     Semester.nighth: 614628609,
 }
 
-TimeSlot = Optional[list[str]]
+
+class ClassInfo(BaseModel):
+    teacher_name: str
+    course: str
+    section: str
+    room: str
+
+
+TimeSlot = Optional[list[ClassInfo]]
 
 
 class DaySchedule(RootModel[dict[str, TimeSlot]]):
@@ -52,8 +62,9 @@ class WeeklySchedule(BaseModel):
 
 def get_routine_data(url):
     df = pd.read_csv(url)
-    df["Day / Slot"].fillna(method="ffill", inplace=True)
-    df.rename(columns={df.columns[0]: "Day / Slot"}, inplace=True)
+    df["Day / Slot"] = df["Day / Slot"].ffill()
+    df = df.rename(columns={df.columns[0]: "Day / Slot"})
+
     grouped = df.groupby("Day / Slot")
     result = {}
     for day_name, group in grouped:
@@ -64,6 +75,23 @@ def get_routine_data(url):
         for slot_col in slot_columns:
             slot_values = group[slot_col].dropna().tolist()
             time_key = slot_col.split("\n")[-1].strip()
+
+            for i, val in enumerate(slot_values):
+                name = val.splitlines()[0]
+                val_splited = val.splitlines()
+
+                # course_match = re.search(r"(CSE \d+)", val)
+                course = val_splited[1].split("(")[0].strip()
+                section_match = re.search(r"([A-Z])\s*Sec", val)
+                room = val_splited[-1].split("Room:")[-1].strip()
+
+                data = {
+                    "teacher_name": name,
+                    "course": course,
+                    "section": section_match.group(1),
+                    "room": room,
+                }
+                slot_values[i] = data
 
             if len(slot_values) > 1:
                 day_data[time_key] = slot_values
@@ -77,7 +105,18 @@ def get_routine_data(url):
     return result
 
 
-app = FastAPI()
+app = FastAPI(
+    title="CSE Routine API",
+    version="1.0.0",
+    description="API to get CSE routine for different semesters.",
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.on_event("startup")
@@ -85,7 +124,12 @@ def startup():
     FastAPICache.init(InMemoryBackend())
 
 
-@app.get("/")
+@app.get(
+    "/cse/",
+    response_model=WeeklySchedule,
+    tags=["CSE Routine"],
+    summary="Get CSE Routine",
+)
 @cache(expire=60)
 def get_routine(semester: Semester) -> WeeklySchedule:
     print("Gid is: ", GIDS[semester])

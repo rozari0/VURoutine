@@ -26,45 +26,15 @@ class Semester(str, Enum):
 
 
 Sections = {
-    Semester.first: [
-        "A",
-        "B",
-        "C",
-    ],
-    Semester.second: [
-        "A",
-        "B",
-        "C",
-    ],
-    Semester.third: [
-        "A",
-        "B",
-        "C",
-    ],
-    Semester.fourth: [
-        "A",
-        "B",
-        "C",
-    ],
-    Semester.fifth: [
-        "A",
-        "B",
-    ],
-    Semester.sixth: [
-        "A",
-        "B",
-    ],
-    Semester.seventh: [
-        "A",
-        "B",
-    ],
-    Semester.eighth: [
-        "A",
-        "B",
-    ],
-    Semester.nighth: [
-        "A",
-    ],
+    Semester.first: ["A", "B", "C", "D"],
+    Semester.second: ["A", "B", "C", "D", "E", "F"],
+    Semester.third: ["A", "B", "C"],
+    Semester.fourth: ["A", "B", "C", "D", "E", "F", "G"],
+    Semester.fifth: ["A", "B", "C", "D"],
+    Semester.sixth: ["A", "B", "C", "D", "E", "F"],
+    Semester.seventh: ["A", "B"],
+    Semester.eighth: ["A", "B", "C", "D", "E", "F"],
+    Semester.nighth: ["A", "B"],
 }
 
 GIDS = {

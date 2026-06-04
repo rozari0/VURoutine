@@ -9,3 +9,6 @@ wheels/
 # Virtual environments
 .venv
 .vercel
+
+# IDE files
+.vscode/

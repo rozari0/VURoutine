@@ -1,3 +1,4 @@
+import logging
 import re
 from contextlib import asynccontextmanager
 from enum import Enum
@@ -12,6 +13,8 @@ from fastapi_cache.decorator import cache
 from pydantic import BaseModel, RootModel
 from fastapi.concurrency import run_in_threadpool
 
+
+logger = logging.getLogger(__name__)
 
 url = "https://docs.google.com/spreadsheets/d/1Sdmr60rcZeBCa2ofswUr9mxIreIj71W9HYM1RRhvfMM/export?format=csv"
 
@@ -75,35 +78,42 @@ class WeeklySchedule(BaseModel):
     Thursday: DaySchedule
 
 
-def get_routine_data(url):
+def get_routine_data(url: str) -> dict[str, dict[str, list[dict[str, str]] | None]]:
     df = pd.read_csv(url)
     df["Day / Slot"] = df["Day / Slot"].ffill()
     df = df.rename(columns={df.columns[0]: "Day / Slot"})
 
     grouped = df.groupby("Day / Slot")
-    result = {}
+    result: dict[str, dict[str, list[dict[str, str]] | None]] = {}
     for day_name, group in grouped:
-        day_data = {}
+        day_data: dict[str, list[dict[str, str]] | None] = {}
 
-        slot_columns = [col for col in df.columns if col.startswith("Slot")]
+        slot_columns = sorted(
+            [col for col in df.columns if col.startswith("Slot")],
+            key=lambda c: int(c.split("Slot")[1].split("\n")[0]),
+        )
 
         for slot_col in slot_columns:
             slot_values = group[slot_col].dropna().tolist()
             time_key = slot_col.split("\n")[-1].strip()
 
             for i, val in enumerate(slot_values):
-                name = val.splitlines()[0]
-                val_splited = val.splitlines()
+                lines = val.splitlines()
+                name = lines[0]
 
-                # course_match = re.search(r"(CSE \d+)", val)
-                course = val_splited[1].split("(")[0].strip()
+                course_line = lines[1] if len(lines) > 1 else ""
+                course = course_line.split("(")[0].strip() if "(" in course_line else course_line.strip()
+
                 section_match = re.search(r"([A-Z])\s*Sec", val)
-                room = val_splited[-1].split("Room:")[-1].strip()
+                section = section_match.group(1) if section_match else ""
+
+                room_line = lines[-1]
+                room = room_line.split("Room:")[-1].strip() if "Room:" in room_line else room_line.strip()
 
                 data = {
                     "teacher_name": name,
                     "course": course,
-                    "section": section_match.group(1),
+                    "section": section,
                     "room": room,
                 }
                 slot_values[i] = data
@@ -147,7 +157,7 @@ app.add_middleware(
 )
 @cache(expire=60)
 async def get_routine(semester: Semester) -> WeeklySchedule:
-    print("Gid is: ", GIDS[semester])
+    logger.info("Gid is: %s", GIDS[semester])
     url_with_gid = f"{url}&gid={GIDS[semester]}"
     routine_data = await run_in_threadpool(get_routine_data, url_with_gid)
     return routine_data

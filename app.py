@@ -1,4 +1,5 @@
 import re
+from contextlib import asynccontextmanager
 from enum import Enum
 from typing import Optional
 
@@ -9,6 +10,8 @@ from fastapi_cache import FastAPICache
 from fastapi_cache.backends.inmemory import InMemoryBackend
 from fastapi_cache.decorator import cache
 from pydantic import BaseModel, RootModel
+from fastapi.concurrency import run_in_threadpool
+
 
 url = "https://docs.google.com/spreadsheets/d/1Sdmr60rcZeBCa2ofswUr9mxIreIj71W9HYM1RRhvfMM/export?format=csv"
 
@@ -22,7 +25,7 @@ class Semester(str, Enum):
     sixth = 6
     seventh = 7
     eighth = 8
-    nighth = 9
+    ninth = 9
 
 
 Sections = {
@@ -34,7 +37,7 @@ Sections = {
     Semester.sixth: ["A", "B", "C", "D", "E", "F"],
     Semester.seventh: ["A", "B"],
     Semester.eighth: ["A", "B", "C", "D", "E", "F"],
-    Semester.nighth: ["A", "B"],
+    Semester.ninth: ["A", "B"],
 }
 
 GIDS = {
@@ -46,7 +49,7 @@ GIDS = {
     Semester.sixth: 1687685897,
     Semester.seventh: 2130237812,
     Semester.eighth: 1780568258,
-    Semester.nighth: 614628609,
+    Semester.ninth: 614628609,
 }
 
 
@@ -105,9 +108,7 @@ def get_routine_data(url):
                 }
                 slot_values[i] = data
 
-            if len(slot_values) > 1:
-                day_data[time_key] = slot_values
-            elif len(slot_values) == 1:
+            if len(slot_values):
                 day_data[time_key] = slot_values
             else:
                 day_data[time_key] = None
@@ -117,10 +118,17 @@ def get_routine_data(url):
     return result
 
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    FastAPICache.init(InMemoryBackend())
+    yield
+
+
 app = FastAPI(
     title="CSE Routine API",
     version="1.0.0",
     description="API to get CSE routine for different semesters.",
+    lifespan=lifespan,
 )
 
 app.add_middleware(
@@ -131,11 +139,6 @@ app.add_middleware(
 )
 
 
-@app.on_event("startup")
-def startup():
-    FastAPICache.init(InMemoryBackend())
-
-
 @app.get(
     "/cse/",
     response_model=WeeklySchedule,
@@ -143,10 +146,10 @@ def startup():
     summary="Get CSE Routine",
 )
 @cache(expire=60)
-def get_routine(semester: Semester) -> WeeklySchedule:
+async def get_routine(semester: Semester) -> WeeklySchedule:
     print("Gid is: ", GIDS[semester])
     url_with_gid = f"{url}&gid={GIDS[semester]}"
-    routine_data = get_routine_data(url_with_gid)
+    routine_data = await run_in_threadpool(get_routine_data, url_with_gid)
     return routine_data
 
 
@@ -156,7 +159,7 @@ def get_routine(semester: Semester) -> WeeklySchedule:
     tags=["CSE Routine"],
     summary="Get Sections for a Semester",
 )
-def get_sections(semester: Semester | None = None):
+async def get_sections(semester: Semester | None = None):
     if semester:
         return {
             semester: Sections.get(semester, []),

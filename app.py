@@ -1,3 +1,4 @@
+import json
 import logging
 import re
 from contextlib import asynccontextmanager
@@ -56,6 +57,7 @@ GIDS = {
 class ClassInfo(BaseModel):
     teacher_name: str
     course: str
+    course_name: Optional[str] = None
     section: str
     room: str
 
@@ -73,6 +75,12 @@ class WeeklySchedule(BaseModel):
     Tuesday: DaySchedule
     Wednesday: DaySchedule
     Thursday: DaySchedule
+
+
+def course_code_to_name(course_code: str) -> str:
+    with open("data/courses.json", "r") as f:
+        courses = json.load(f)
+    return courses.get(course_code, {}).get("title", "")
 
 
 def get_routine_data(url: str) -> dict[str, dict[str, list[dict[str, str]] | None]]:
@@ -118,6 +126,7 @@ def get_routine_data(url: str) -> dict[str, dict[str, list[dict[str, str]] | Non
                 data = {
                     "teacher_name": name,
                     "course": course,
+                    "course_name": course_code_to_name(course),
                     "section": section,
                     "room": room,
                 }

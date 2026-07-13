@@ -6,13 +6,13 @@ from typing import Optional
 
 import pandas as pd
 from fastapi import FastAPI
+from fastapi.concurrency import run_in_threadpool
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.inmemory import InMemoryBackend
 from fastapi_cache.decorator import cache
 from pydantic import BaseModel, RootModel
-from fastapi.concurrency import run_in_threadpool
-
 
 logger = logging.getLogger(__name__)
 
@@ -28,19 +28,17 @@ class Semester(str, Enum):
     sixth = 6
     seventh = 7
     eighth = 8
-    ninth = 9
 
 
 Sections = {
-    Semester.first: ["A", "B", "C", "D"],
-    Semester.second: ["A", "B", "C", "D", "E", "F"],
-    Semester.third: ["A", "B", "C"],
-    Semester.fourth: ["A", "B", "C", "D", "E", "F", "G"],
-    Semester.fifth: ["A", "B", "C", "D"],
-    Semester.sixth: ["A", "B", "C", "D", "E", "F"],
-    Semester.seventh: ["A", "B"],
-    Semester.eighth: ["A", "B", "C", "D", "E", "F"],
-    Semester.ninth: ["A", "B"],
+    Semester.first: ["A", "B", "C", "D", "E", "F"],
+    Semester.second: ["A", "B", "C", "D"],
+    Semester.third: ["A", "B", "C", "D", "E", "F"],
+    Semester.fourth: ["A", "B", "C"],
+    Semester.fifth: ["A", "B", "C", "D", "E", "F", "G"],
+    Semester.sixth: ["A", "B", "C", "D"],
+    Semester.seventh: ["A", "B", "C", "D", "E", "F"],
+    Semester.eighth: ["A", "B"],
 }
 
 GIDS = {
@@ -52,7 +50,6 @@ GIDS = {
     Semester.sixth: 1687685897,
     Semester.seventh: 2130237812,
     Semester.eighth: 1780568258,
-    Semester.ninth: 614628609,
 }
 
 
@@ -102,13 +99,21 @@ def get_routine_data(url: str) -> dict[str, dict[str, list[dict[str, str]] | Non
                 name = lines[0]
 
                 course_line = lines[1] if len(lines) > 1 else ""
-                course = course_line.split("(")[0].strip() if "(" in course_line else course_line.strip()
+                course = (
+                    course_line.split("(")[0].strip()
+                    if "(" in course_line
+                    else course_line.strip()
+                )
 
                 section_match = re.search(r"([A-Z])\s*Sec", val)
                 section = section_match.group(1) if section_match else ""
 
                 room_line = lines[-1]
-                room = room_line.split("Room:")[-1].strip() if "Room:" in room_line else room_line.strip()
+                room = (
+                    room_line.split("Room:")[-1].strip()
+                    if "Room:" in room_line
+                    else room_line.strip()
+                )
 
                 data = {
                     "teacher_name": name,
@@ -136,7 +141,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title="CSE Routine API",
-    version="1.0.0",
+    version="2.0.0",
     description="API to get CSE routine for different semesters.",
     lifespan=lifespan,
 )
@@ -147,6 +152,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.get("/", include_in_schema=False)
+async def redirect_to_docs():
+    return RedirectResponse(url="/docs")
 
 
 @app.get(
@@ -176,3 +186,11 @@ async def get_sections(semester: Semester | None = None):
         }
 
     return Sections
+
+
+@app.get(
+    "/health/",
+    tags=["Health Check"],
+)
+async def health_check() -> dict[str, str]:
+    return {"status": "ok"}

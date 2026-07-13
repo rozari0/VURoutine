@@ -1,0 +1,263 @@
+{
+  "CSE 1101": {
+    "title": "Structured Programming Language"
+  },
+  "CSE 1102": {
+    "title": "Structured Programming Language Lab"
+  },
+  "EEE 1131": {
+    "title": "Basic Electrical Circuits"
+  },
+  "EEE 1132": {
+    "title": "Basic Electrical Circuits Lab"
+  },
+  "MAT 1141": {
+    "title": "Differential and Integral Calculus"
+  },
+  "PHY 1151": {
+    "title": "Basic Physics"
+  },
+  "PHY 1152": {
+    "title": "Basic Physics Lab"
+  },
+  "ENG 0002": {
+    "title": "English Fundamentals"
+  },
+  "CSE 1201": {
+    "title": "Object Oriented Programming"
+  },
+  "CSE 1202": {
+    "title": "Object Oriented Programming Lab"
+  },
+  "CSE 1203": {
+    "title": "Discrete Mathematics"
+  },
+  "EEE 1231": {
+    "title": "Electronic Devices and Circuits"
+  },
+  "MAT 1241": {
+    "title": "Coordinate Geometry and Vector Analysis"
+  },
+  "CHE 1261": {
+    "title": "Chemistry"
+  },
+  "CHE 1262": {
+    "title": "Chemistry Lab"
+  },
+  "CSE 2101": {
+    "title": "Object Oriented Design and Design Patterns"
+  },
+  "CSE 2102": {
+    "title": "Object Oriented Design and Design Patterns Lab"
+  },
+  "CSE 2103": {
+    "title": "Data Structures"
+  },
+  "CSE 2104": {
+    "title": "Data Structures Lab"
+  },
+  "CSE 2105": {
+    "title": "Digital System Design"
+  },
+  "CSE 2106": {
+    "title": "Digital System Design Lab"
+  },
+  "MAT 2141": {
+    "title": "Differential Equations"
+  },
+  "BAN 0001": {
+    "title": "History of the Emergence of Bangladesh"
+  },
+  "CSE 2201": {
+    "title": "Software Engineering and System Analysis"
+  },
+  "CSE 2203": {
+    "title": "Computer Algorithms"
+  },
+  "CSE 2204": {
+    "title": "Computer Algorithms Lab"
+  },
+  "CSE 2205": {
+    "title": "Numerical Methods"
+  },
+  "CSE 2206": {
+    "title": "Numerical Methods Lab"
+  },
+  "CSE 2207": {
+    "title": "Computer Networks"
+  },
+  "CSE 2208": {
+    "title": "Computer Networks Lab"
+  },
+  "MAT 2241": {
+    "title": "Linear Algebra and Complex Variables"
+  },
+  "CSE 3101": {
+    "title": "Computer Graphics"
+  },
+  "CSE 3102": {
+    "title": "Computer Graphics Lab"
+  },
+  "CSE 3103": {
+    "title": "Database Management System"
+  },
+  "CSE 3104": {
+    "title": "Database Management System Lab"
+  },
+  "CSE 3105": {
+    "title": "Computer Architecture"
+  },
+  "CSE 3106": {
+    "title": "Computer Architecture Lab"
+  },
+  "CSE 3107": {
+    "title": "Communication Engineering"
+  },
+  "MAT 3141": {
+    "title": "Applied Statistics and Probability"
+  },
+  "CSE 3201": {
+    "title": "Theory of Computation and Compiler Design"
+  },
+  "CSE 3203": {
+    "title": "Operating System and System Programming"
+  },
+  "CSE 3204": {
+    "title": "Operating System and System Programming Lab"
+  },
+  "CSE 3205": {
+    "title": "Microprocessor and Assembly Language"
+  },
+  "CSE 3206": {
+    "title": "Microprocessor and Assembly Language Lab"
+  },
+  "CSE 3207": {
+    "title": "Digital Signal Processing"
+  },
+  "CSE 3208": {
+    "title": "Digital Signal Processing Lab"
+  },
+  "CSE 3209": {
+    "title": "E-commerce and Web Programming"
+  },
+  "CSE 3210": {
+    "title": "E-commerce and Web Programming Project Lab"
+  },
+  "ECO 3271": {
+    "title": "Engineering Economics"
+  },
+  "CSE 4101": {
+    "title": "Artificial Intelligence"
+  },
+  "CSE 4102": {
+    "title": "Artificial Intelligence Lab"
+  },
+  "CSE 4103": {
+    "title": "Digital Image Processing"
+  },
+  "CSE 4104": {
+    "title": "Digital Image Processing Lab"
+  },
+  "CSE 4105": {
+    "title": "Engineering Ethics and Environmental Protection"
+  },
+  "ACC 4171": {
+    "title": "Industrial Management and Accountancy"
+  },
+  "CSE 4100": {
+    "title": "Project or Thesis with Seminar Part I"
+  },
+  "CSE 4120": {
+    "title": "Industrial Attachment"
+  },
+  "CSE 4122": {
+    "title": "Technical Report Writing"
+  },
+  "CSE 4107": {
+    "title": "Microcontroller, Computer Peripherals and Interfacing"
+  },
+  "CSE 4108": {
+    "title": "Microcontroller, Computer Peripherals and Interfacing Lab"
+  },
+  "CSE 4109": {
+    "title": "Computer Vision and Pattern Recognition"
+  },
+  "CSE 4110": {
+    "title": "Computer Vision and Pattern Recognition Lab"
+  },
+  "CSE 4111": {
+    "title": "Mobile Apps and Game Development"
+  },
+  "CSE 4112": {
+    "title": "Mobile Apps and Game Development Lab"
+  },
+  "CSE 4201": {
+    "title": "Parallel Processing and Distributed System"
+  },
+  "CSE 4202": {
+    "title": "Parallel Processing and Distributed System Lab"
+  },
+  "CSE 4203": {
+    "title": "Cryptography and Network Security"
+  },
+  "CSE 4204": {
+    "title": "Cryptography and Network Security Lab"
+  },
+  "CSE 4200": {
+    "title": "Project or Thesis with Seminar Part II"
+  },
+  "CSE 4205": {
+    "title": "Robotics and Automation"
+  },
+  "CSE 4206": {
+    "title": "Robotics and Automation Lab"
+  },
+  "CSE 4207": {
+    "title": "Big Data Analysis"
+  },
+  "CSE 4208": {
+    "title": "Big Data Analysis Lab"
+  },
+  "CSE 4209": {
+    "title": "Cloud Computing and IOT"
+  },
+  "CSE 4210": {
+    "title": "Cloud Computing and IOT Lab"
+  },
+  "CSE 4211": {
+    "title": "Machine Learning"
+  },
+  "CSE 4212": {
+    "title": "Machine Learning Lab"
+  },
+  "CSE 1100": {
+    "title": "Computer Fundamentals Lab"
+  },
+  "CHE 1161": {
+    "title": "Chemistry"
+  },
+  "EEE 1232": {
+    "title": "Electronic Devices and Circuits Lab"
+  },
+  "ECO 2171": {
+    "title": "Engineering Economics"
+  },
+  "CSE 2202": {
+    "title": "Object Oriented Design and Design Patterns Lab"
+  },
+  "ACC 3271": {
+    "title": "Industrial Management and Accountancy"
+  },
+  "CSE 4113": {
+    "title": "Microcontroller, Computer Peripherals and Interfacing"
+  },
+  "CSE 4114": {
+    "title": "Microcontroller, Computer Peripherals and Interfacing Lab"
+  },
+  "CSE 4213": {
+    "title": "UI/UX Engineering"
+  },
+  "CSE 4214": {
+    "title": "UI/UX Engineering Lab"
+  }
+}

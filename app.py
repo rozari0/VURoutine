@@ -17,7 +17,7 @@ from pydantic import BaseModel, RootModel
 
 logger = logging.getLogger(__name__)
 
-url = "https://docs.google.com/spreadsheets/d/1Sdmr60rcZeBCa2ofswUr9mxIreIj71W9HYM1RRhvfMM/export?format=csv"
+URL = "https://docs.google.com/spreadsheets/d/1Sdmr60rcZeBCa2ofswUr9mxIreIj71W9HYM1RRhvfMM/export?format=csv"
 
 
 class Semester(str, Enum):
@@ -56,6 +56,7 @@ GIDS = {
 
 class ClassInfo(BaseModel):
     teacher_name: str
+    designation: Optional[str] = None
     course: str
     course_name: Optional[str] = None
     section: str
@@ -81,6 +82,15 @@ def course_code_to_name(course_code: str) -> str:
     with open("data/courses.json", "r") as f:
         courses = json.load(f)
     return courses.get(course_code, {}).get("title", "")
+
+
+with open("data/Teachers.json", "r") as f:
+    teachers = json.load(f)
+
+
+def get_teacher_info(teacher_name: str) -> dict[str, str]:
+    teacher = teachers.get(teacher_name)
+    return teacher if teacher else {}
 
 
 def get_routine_data(url: str) -> dict[str, dict[str, list[dict[str, str]] | None]]:
@@ -123,14 +133,30 @@ def get_routine_data(url: str) -> dict[str, dict[str, list[dict[str, str]] | Non
                     else room_line.strip()
                 )
 
+                if "," in name:
+                    names = [n.strip() for n in name.split(",")]
+                    teachers_info = []
+                    for n in names:
+                        info = get_teacher_info(n)
+                        if info:
+                            teachers_info.append(info.get("designation", "Lecturer"))
+                        else:
+                            teachers_info.append("Lecturer")
+                    teachers_info = ", ".join(teachers_info)
+                else:
+                    teachers_info = get_teacher_info(name).get(
+                        "designation", "Lecturer"
+                    )
+
                 data = {
                     "teacher_name": name,
+                    "designation": teachers_info if teachers_info else None,
                     "course": course,
                     "course_name": course_code_to_name(course),
                     "section": section,
                     "room": room,
                 }
-                slot_values[i] = data
+                slot_values[i] = ClassInfo(**data)
 
             if len(slot_values):
                 day_data[time_key] = slot_values
@@ -177,7 +203,7 @@ async def redirect_to_docs():
 @cache(expire=60)
 async def get_routine(semester: Semester) -> WeeklySchedule:
     logger.info("Gid is: %s", GIDS[semester])
-    url_with_gid = f"{url}&gid={GIDS[semester]}"
+    url_with_gid = f"{URL}&gid={GIDS[semester]}"
     routine_data = await run_in_threadpool(get_routine_data, url_with_gid)
     return routine_data
 
@@ -195,6 +221,15 @@ async def get_sections(semester: Semester | None = None):
         }
 
     return Sections
+
+
+@app.get(
+    "/cse/teachers/",
+    tags=["CSE Routine"],
+    summary="Get CSE Info",
+)
+async def get_info():
+    return teachers
 
 
 @app.get(

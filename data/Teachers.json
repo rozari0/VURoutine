@@ -1,0 +1,534 @@
+{
+    "Prof. Dr. Shamim Ahmad": {
+        "name": "Prof. Dr. Shamim Ahmad",
+        "designation": "Head",
+        "email": "head.cse@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01730406518"
+    },
+    "Dr. Ahammad Hossain": {
+        "name": "Dr. Ahammad Hossain",
+        "designation": "Associate Professor",
+        "email": "ahammad@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01762327094"
+    },
+    "Md. Mizanur Rahman": {
+        "name": "Md. Mizanur Rahman",
+        "designation": "Assistant Professor",
+        "email": "mizanur@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01770702911"
+    },
+    "Umme Rumman": {
+        "name": "Umme Rumman",
+        "designation": "Assistant Professor",
+        "email": "chaiti@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01716673728"
+    },
+    "Mst. Jannatul Ferdous": {
+        "name": "Mst. Jannatul Ferdous",
+        "designation": "Assistant Professor",
+        "email": "jannat@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01756827725"
+    },
+    "Sumaia Rahman": {
+        "name": "Sumaia Rahman",
+        "designation": "Assistant Professor",
+        "email": "sumaia@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01795381332"
+    },
+    "A.S.M Delwar Hossain": {
+        "name": "A.S.M Delwar Hossain",
+        "designation": "Assistant Professor",
+        "email": "delwar@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01780681781"
+    },
+    "Md. Toufikul Islam": {
+        "name": "Md. Toufikul Islam",
+        "designation": "Assistant Professor",
+        "email": "toufikul@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01701012413"
+    },
+    "Md. Muktar Hossain": {
+        "name": "Md. Muktar Hossain",
+        "designation": "Senior Lecturer",
+        "email": "muktar@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01776300789"
+    },
+    "Md. Mahfujur Rahman": {
+        "name": "Md. Mahfujur Rahman",
+        "designation": "Senior Lecturer",
+        "email": "mahfujur@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01976411722"
+    },
+    "Protik Chakroborty": {
+        "name": "Protik Chakroborty",
+        "designation": "Senior Lecturer",
+        "email": "protik@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01318988313"
+    },
+    "Md. Nour Noby": {
+        "name": "Md. Nour Noby",
+        "designation": "Lecturer",
+        "email": "nournoby@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01755774070"
+    },
+    "Ayesha Akter Lima": {
+        "name": "Ayesha Akter Lima",
+        "designation": "Lecturer",
+        "email": "lima@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01701041311"
+    },
+    "Ipshita Tasnim Raha": {
+        "name": "Ipshita Tasnim Raha",
+        "designation": "Lecturer",
+        "email": "ipshita@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01715673436"
+    },
+    "Sumaiya Tasnim Dristy": {
+        "name": "Sumaiya Tasnim Dristy",
+        "designation": "Lecturer",
+        "email": "sumaiya@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01799011979"
+    },
+    "Shamim Reza": {
+        "name": "Shamim Reza",
+        "designation": "Lecturer",
+        "email": "s.reza@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01921285959"
+    },
+    "Akib Ikbal": {
+        "name": "Akib Ikbal",
+        "designation": "Lecturer",
+        "email": "akib@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01743172636"
+    },
+    "Samira Tareque": {
+        "name": "Samira Tareque",
+        "designation": "Lecturer",
+        "email": "samira@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01309427603"
+    },
+    "Mohammad Faisal Al-Naser": {
+        "name": "Mohammad Faisal Al-Naser",
+        "designation": "Lecturer",
+        "email": "faisal@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01404732567"
+    },
+    "Ahmed Al Azmain": {
+        "name": "Ahmed Al Azmain",
+        "designation": "Lecturer",
+        "email": "azmain@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01765388951"
+    },
+    "Md. Jamil Chaudhary": {
+        "name": "Md. Jamil Chaudhary",
+        "designation": "Lecturer",
+        "email": "jamil@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01793942198"
+    },
+    "Md. Shahid Ahmmed Shakil": {
+        "name": "Md. Shahid Ahmmed Shakil",
+        "designation": "Lecturer",
+        "email": "shakil@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01766165877"
+    },
+    "Zannatul Mifta": {
+        "name": "Zannatul Mifta",
+        "designation": "Lecturer",
+        "email": "mifta@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01738659759"
+    },
+    "Ruhul Amin": {
+        "name": "Ruhul Amin",
+        "designation": "Lecturer",
+        "email": "ruhul@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01313529302"
+    },
+    "Susmit Jahan Rose": {
+        "name": "Susmit Jahan Rose",
+        "designation": "Lecturer",
+        "email": "sushmit@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01792774195"
+    },
+    "Israt Jahan Rinky": {
+        "name": "Israt Jahan Rinky",
+        "designation": "Lecturer",
+        "email": "rinky@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01710437000"
+    },
+    "Md. Fatin Ilham": {
+        "name": "Md. Fatin Ilham",
+        "designation": "Lecturer ",
+        "email": "ilham@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01616425777"
+    },
+    "D.M Asadujjaman": {
+        "name": "D.M Asadujjaman",
+        "designation": "Lecturer ",
+        "email": "asadujjaman@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01701042718"
+    },
+    "Md. Arshad Wasif": {
+        "name": "Md. Arshad Wasif",
+        "designation": "Lecturer ",
+        "email": "arshad@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01858316636"
+    },
+    "Md. Taufiq Khan": {
+        "name": "Md. Taufiq Khan",
+        "designation": "Lecturer ",
+        "email": "taufiq@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01952749248"
+    },
+    "Shorav Paul": {
+        "name": "Shorav Paul",
+        "designation": "Lecturer ",
+        "email": "shorav@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01834740441"
+    },
+    "Sumaya Hannan Shova": {
+        "name": "Sumaya Hannan Shova",
+        "designation": "Lecturer ",
+        "email": "shova@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01645714144"
+    },
+    "Md. Fayzul Islam": {
+        "name": "Md. Fayzul Islam",
+        "designation": "Lecturer ",
+        "email": "fayzul@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01795035574"
+    },
+    "MD. Adnan Sami": {
+        "name": "MD. Adnan Sami",
+        "designation": "Lecturer ",
+        "email": "adnan@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01648187304"
+    },
+    "Adrita Alam": {
+        "name": "Adrita Alam",
+        "designation": "Lecturer ",
+        "email": "adrita@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01733331392"
+    },
+    "Afroza Islam": {
+        "name": "Afroza Islam",
+        "designation": "Lecturer ",
+        "email": "afroza.islam@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01318751114"
+    },
+    "Zuairia Raisa Bintay Makin": {
+        "name": "Zuairia Raisa Bintay Makin",
+        "designation": "Lecturer ",
+        "email": "makin@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01829051117"
+    },
+    "Humayra Tasnim": {
+        "name": "Humayra Tasnim",
+        "designation": "Lecturer ",
+        "email": "humayra@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01773303199"
+    },
+    "Asim Moin Saad": {
+        "name": "Asim Moin Saad",
+        "designation": "Lecturer ",
+        "email": "asim@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01814222664"
+    },
+    "Afifa Tasneem Quanita": {
+        "name": "Afifa Tasneem Quanita",
+        "designation": "Lecturer ",
+        "email": "quanita@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01764828065"
+    },
+    "Md. Khalid Sakib": {
+        "name": "Md. Khalid Sakib",
+        "designation": "Lecturer ",
+        "email": "khalid@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01722661773"
+    },
+    "Md. Alamin Hossain Pappu": {
+        "name": "Md. Alamin Hossain Pappu",
+        "designation": "Lecturer ",
+        "email": "alamin@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01776098594"
+    },
+    "Anupoma Barman Shetu": {
+        "name": "Anupoma Barman Shetu",
+        "designation": "Lecturer ",
+        "email": "anupoma@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01704680283"
+    },
+    "Sajeeb Kumar Ray": {
+        "name": "Sajeeb Kumar Ray",
+        "designation": "Lecturer ",
+        "email": "sajeeb@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01785307680"
+    },
+    "Tahrima Sayem Sowa": {
+        "name": "Tahrima Sayem Sowa",
+        "designation": "Lecturer ",
+        "email": "sowa@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01816187689"
+    },
+    "Syeda Tamanna Alam Monisha": {
+        "name": "Syeda Tamanna Alam Monisha",
+        "designation": "Lecturer ",
+        "email": "syeda@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01712953999"
+    },
+    "Barisha Chowdhury": {
+        "name": "Barisha Chowdhury",
+        "designation": "Lecturer ",
+        "email": "barisha@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01719115149"
+    },
+    "Shakil Hossan": {
+        "name": "Shakil Hossan",
+        "designation": "Lecturer ",
+        "email": "shakilhossan@vu.edu.bd ",
+        "university": "Varendra University",
+        "contact": "01892016020"
+    },
+    "Mehedi Hasan Shakil": {
+        "name": "Mehedi Hasan Shakil",
+        "designation": "Lecturer ",
+        "email": "shakil.cse@vu.edu.bd ",
+        "university": "Varendra University",
+        "contact": "01793814409"
+    },
+    "Mohd Ruhul Ameen": {
+        "name": "Mohd Ruhul Ameen",
+        "designation": "Lecturer ",
+        "email": "ruhul.cse@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01312300804"
+    },
+    "Fahmida Akter Jesis Shithi": {
+        "name": "Fahmida Akter Jesis Shithi",
+        "designation": "Lecturer ",
+        "email": "fahmida@vu.edu.bd",
+        "university": "Varendra University",
+        "contact": "01319406333"
+    },
+    "Prof. Dr. Boshir Ahmed": {
+        "name": "Prof. Dr. Boshir Ahmed",
+        "designation": "Professor",
+        "email": null,
+        "university": "RUET",
+        "contact": "01713228547"
+    },
+    "Dr. Md. Johirul Islam": {
+        "name": "Dr. Md. Johirul Islam",
+        "designation": "Assistant Professor",
+        "email": null,
+        "university": "RUET",
+        "contact": "01723216880"
+    },
+    "Md. Faruk Hossain, Ph.D.": {
+        "name": "Md. Faruk Hossain, Ph.D.",
+        "designation": "Assistant Professor",
+        "email": null,
+        "university": "RUET",
+        "contact": "01756906574"
+    },
+    "Md. Faisal Rahman Badal": {
+        "name": "Md. Faisal Rahman Badal",
+        "designation": "Assistant Professor",
+        "email": null,
+        "university": "RUET",
+        "contact": "01763130652"
+    },
+    "Dr. Md. Mayeedul Islam": {
+        "name": "Dr. Md. Mayeedul Islam",
+        "designation": "Professor",
+        "email": null,
+        "university": "RUET",
+        "contact": "01775093606"
+    },
+    "Dr. Jewel Hossen": {
+        "name": "Dr. Jewel Hossen",
+        "designation": "Associate Professor",
+        "email": null,
+        "university": "RUET",
+        "contact": "01515283109"
+    },
+    "Sanjoy Kumar Chakravarty": {
+        "name": "Sanjoy Kumar Chakravarty",
+        "designation": "Associate Professor",
+        "email": null,
+        "university": "RU",
+        "contact": "01718076436"
+    },
+    "Dr. Md. Ekramul Hamid": {
+        "name": "Dr. Md. Ekramul Hamid",
+        "designation": "Professor",
+        "email": null,
+        "university": "RU",
+        "contact": "01726420004"
+    },
+    "Dr. Md. Iqbal Aziz Khan": {
+        "name": "Dr. Md. Iqbal Aziz Khan",
+        "designation": "Professor ",
+        "email": null,
+        "university": "RU",
+        "contact": "01712010916"
+    },
+    "Dr. Jaker Hossain": {
+        "name": "Dr. Jaker Hossain",
+        "designation": "Professor ",
+        "email": null,
+        "university": "RU",
+        "contact": "01919803395"
+    },
+    "Dr. Md.  Ariful Islam Nahid": {
+        "name": "Dr. Md.  Ariful Islam Nahid",
+        "designation": "Professor",
+        "email": null,
+        "university": "RU",
+        "contact": "01760174238"
+    },
+    "Dr. Md. Golam Rashed": {
+        "name": "Dr. Md. Golam Rashed",
+        "designation": "Associate Professor",
+        "email": null,
+        "university": "RU",
+        "contact": "01717515008"
+    },
+    "Dr. Md. Hamidul Islam": {
+        "name": "Dr. Md. Hamidul Islam",
+        "designation": "Assistant Profesor ",
+        "email": null,
+        "university": "RU",
+        "contact": "01714585201"
+    },
+    "Dr. Md. Abu Bakar PK.": {
+        "name": "Dr. Md. Abu Bakar PK.",
+        "designation": "Professor ",
+        "email": null,
+        "university": "RU",
+        "contact": "01716386533"
+    },
+    "Dr. Md. Sherezzaman": {
+        "name": "Dr. Md. Sherezzaman",
+        "designation": "Professor",
+        "email": null,
+        "university": "RU",
+        "contact": "01717012201"
+    },
+    "Md. Sanaul Haque": {
+        "name": "Md. Sanaul Haque",
+        "designation": "Lecturer",
+        "email": null,
+        "university": "Varendra University",
+        "contact": "01774314119"
+    },
+    "Mst. Somapti Akter": {
+        "name": "Mst. Somapti Akter",
+        "designation": "Lecturer",
+        "email": null,
+        "university": "Varendra University",
+        "contact": "01771180837"
+    },
+    "Sanjida Sultana Rika": {
+        "name": "Sanjida Sultana Rika",
+        "designation": "Lecturer",
+        "email": null,
+        "university": "Varendra University",
+        "contact": "01861081984"
+    },
+    "Emamul Haque": {
+        "name": "Emamul Haque",
+        "designation": "Lecturer",
+        "email": null,
+        "university": "Varendra University",
+        "contact": "01710056688"
+    },
+    "Fahamina Zahan": {
+        "name": "Fahamina Zahan",
+        "designation": "Lecturer",
+        "email": null,
+        "university": "Varendra University",
+        "contact": "01886714826"
+    },
+    "Faisal Aziz": {
+        "name": "Faisal Aziz",
+        "designation": "Lecturer",
+        "email": null,
+        "university": "Varendra University",
+        "contact": "01717843998"
+    },
+    "Subrina Ahmed Shanta": {
+        "name": "Subrina Ahmed Shanta",
+        "designation": "Lecturer",
+        "email": null,
+        "university": "Varendra University",
+        "contact": "01335899457"
+    },
+    "Bebak More": {
+        "name": "Bebak More",
+        "designation": "Lecturer",
+        "email": null,
+        "university": "Varendra University",
+        "contact": "01738474122"
+    },
+    "Md. Moniruzzaman Kiron": {
+        "name": "Md. Moniruzzaman Kiron",
+        "designation": "Lecturer",
+        "email": null,
+        "university": "Varendra University",
+        "contact": "01975589956"
+    },
+    "Most. Afshara Tasnim Ritu": {
+        "name": "Most. Afshara Tasnim Ritu",
+        "designation": "Lecturer",
+        "email": null,
+        "university": "Varendra University",
+        "contact": "01778582757"
+    }
+}

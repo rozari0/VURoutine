@@ -150,3 +150,13 @@ def parse_routine_days(days):
         result[day_name] = schedule
 
     return result
+
+
+def ping_routine():
+    """
+    Ping the routine page to keep the session alive.
+    """
+    url = ROUTINE_URL
+
+    response = client.get(url, timeout=10)
+    return response.status_code

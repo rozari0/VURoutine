@@ -12,7 +12,7 @@ from fastapi_cache.backends.inmemory import InMemoryBackend
 from fastapi_cache.decorator import cache
 from pydantic import BaseModel, RootModel
 
-from scrape import get_html_response, get_structured_data, make_soup
+from scrape import get_html_response, get_structured_data, make_soup, ping_routine
 
 logger = logging.getLogger(__name__)
 
@@ -172,6 +172,22 @@ async def get_info():
 @app.get(
     "/health/",
     tags=["Health Check"],
+    responses={
+        503: {
+            "model": ErrorResponse,
+            "description": "Service Unavailable",
+        },
+        200: {
+            "model": dict[str, str],
+            "description": "Service is healthy",
+        },
+    },
 )
-async def health_check() -> dict[str, str]:
-    return {"status": "ok"}
+async def health_check():
+    ping_status = await run_in_threadpool(ping_routine)
+    if ping_status != 200:
+        return JSONResponse(
+            status_code=503,
+            content={"status": "error", "message": "Routine service is unavailable."},
+        )
+    return {"status": f"ok. Routine service is available."}

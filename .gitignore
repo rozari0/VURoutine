@@ -12,3 +12,6 @@ wheels/
 
 # IDE files
 .vscode/
+
+# Environment variables
+.env

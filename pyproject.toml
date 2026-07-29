@@ -3,7 +3,13 @@ name = "vuroutine"
 version = "0.1.0"
 requires-python = ">=3.14"
 dependencies = [
+    "beautifulsoup4>=4.15.0",
+    "fastapi>=0.141.0",
     "fastapi-cache2>=0.2.2",
-    "fastapi[standard]>=0.139.0",
-    "pandas>=3.0.3",
+    "uvicorn>=0.52.0",
+]
+
+[tool.ruff]
+lint.select = [
+    "I",
 ]

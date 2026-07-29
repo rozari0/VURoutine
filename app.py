@@ -1,11 +1,8 @@
 import json
 import logging
-import re
 from contextlib import asynccontextmanager
-from enum import Enum
-from typing import Optional
+from typing import Literal, Optional
 
-import pandas as pd
 from fastapi import FastAPI
 from fastapi.concurrency import run_in_threadpool
 from fastapi.middleware.cors import CORSMiddleware
@@ -15,55 +12,34 @@ from fastapi_cache.backends.inmemory import InMemoryBackend
 from fastapi_cache.decorator import cache
 from pydantic import BaseModel, RootModel
 
+from scrape import get_html_response, get_structured_data, make_soup
+
 logger = logging.getLogger(__name__)
-
-URL = "https://docs.google.com/spreadsheets/d/1Sdmr60rcZeBCa2ofswUr9mxIreIj71W9HYM1RRhvfMM/export?format=csv"
-
-
-class Semester(str, Enum):
-    first = 1
-    second = 2
-    third = 3
-    fourth = 4
-    fifth = 5
-    sixth = 6
-    seventh = 7
-    eighth = 8
 
 
 Sections = {
-    Semester.first: ["A", "B", "C", "D", "E", "F"],
-    Semester.second: ["A", "B", "C", "D"],
-    Semester.third: ["A", "B", "C", "D", "E", "F"],
-    Semester.fourth: ["A", "B", "C"],
-    Semester.fifth: ["A", "B", "C", "D", "E", "F", "G"],
-    Semester.sixth: ["A", "B", "C", "D"],
-    Semester.seventh: ["A", "B", "C", "D", "E", "F"],
-    Semester.eighth: ["A", "B"],
-}
-
-GIDS = {
-    Semester.first: 0,
-    Semester.second: 1739684797,
-    Semester.third: 1812971555,
-    Semester.fourth: 1642366900,
-    Semester.fifth: 1698922910,
-    Semester.sixth: 1687685897,
-    Semester.seventh: 2130237812,
-    Semester.eighth: 1780568258,
+    1: ["A", "B", "C", "D", "E", "F"],
+    2: ["A", "B", "C", "D"],
+    3: ["A", "B", "C", "D", "E", "F"],
+    4: ["A", "B", "C"],
+    5: ["A", "B", "C", "D", "E", "F", "G"],
+    6: ["A", "B", "C", "D"],
+    7: ["A", "B", "C", "D", "E", "F"],
+    8: ["A", "B"],
 }
 
 
 class ClassInfo(BaseModel):
-    teacher_name: str
-    designation: Optional[str] = None
+    teacher_name: str | None = None
+    designation: str | None = None
     course: str
-    course_name: Optional[str] = None
-    section: str
-    room: str
+    course_name: str | None = None
+    section: str | None = None
+    room: str | None = None
+    end_time: str | None = None
 
 
-TimeSlot = Optional[list[ClassInfo]]
+TimeSlot = Optional[ClassInfo]
 
 
 class DaySchedule(RootModel[dict[str, TimeSlot]]):
@@ -78,11 +54,7 @@ class WeeklySchedule(BaseModel):
     Thursday: DaySchedule
 
 
-def course_code_to_name(course_code: str) -> str:
-    with open("data/courses.json", "r") as f:
-        courses = json.load(f)
-    return courses.get(course_code, {}).get("title", "")
-
+Semester = Literal["1", "2", "3", "4", "5", "6", "7", "8"]
 
 with open("data/Teachers.json", "r") as f:
     teachers = json.load(f)
@@ -91,81 +63,6 @@ with open("data/Teachers.json", "r") as f:
 def get_teacher_info(teacher_name: str) -> dict[str, str]:
     teacher = teachers.get(teacher_name)
     return teacher if teacher else {}
-
-
-def get_routine_data(url: str) -> dict[str, dict[str, list[dict[str, str]] | None]]:
-    df = pd.read_csv(url)
-    df["Day / Slot"] = df["Day / Slot"].ffill()
-    df = df.rename(columns={df.columns[0]: "Day / Slot"})
-
-    grouped = df.groupby("Day / Slot")
-    result: dict[str, dict[str, list[dict[str, str]] | None]] = {}
-    for day_name, group in grouped:
-        day_data: dict[str, list[dict[str, str]] | None] = {}
-
-        slot_columns = sorted(
-            [col for col in df.columns if col.startswith("Slot")],
-            key=lambda c: int(c.split("Slot")[1].split("\n")[0]),
-        )
-
-        for slot_col in slot_columns:
-            slot_values = group[slot_col].dropna().tolist()
-            time_key = slot_col.split("\n")[-1].strip()
-
-            for i, val in enumerate(slot_values):
-                lines = val.splitlines()
-                name = lines[0]
-
-                course_line = lines[1] if len(lines) > 1 else ""
-                course = (
-                    course_line.split("(")[0].strip()
-                    if "(" in course_line
-                    else course_line.strip()
-                )
-
-                section_match = re.search(r"([A-Z])\s*Sec", val)
-                section = section_match.group(1) if section_match else ""
-
-                room_line = lines[-1]
-                room = (
-                    room_line.split("Room:")[-1].strip()
-                    if "Room:" in room_line
-                    else room_line.strip()
-                )
-
-                if "," in name:
-                    names = [n.strip() for n in name.split(",")]
-                    teachers_info = []
-                    for n in names:
-                        info = get_teacher_info(n)
-                        if info:
-                            teachers_info.append(info.get("designation", "Lecturer"))
-                        else:
-                            teachers_info.append("Lecturer")
-                    teachers_info = ", ".join(teachers_info)
-                else:
-                    teachers_info = get_teacher_info(name).get(
-                        "designation", "Lecturer"
-                    )
-
-                data = {
-                    "teacher_name": name,
-                    "designation": teachers_info if teachers_info else None,
-                    "course": course,
-                    "course_name": course_code_to_name(course),
-                    "section": section,
-                    "room": room,
-                }
-                slot_values[i] = ClassInfo(**data)
-
-            if len(slot_values):
-                day_data[time_key] = slot_values
-            else:
-                day_data[time_key] = None
-
-            result[day_name] = day_data
-
-    return result
 
 
 @asynccontextmanager
@@ -200,12 +97,19 @@ async def redirect_to_docs():
     tags=["CSE Routine"],
     summary="Get CSE Routine",
 )
-@cache(expire=60)
-async def get_routine(semester: Semester) -> WeeklySchedule:
-    logger.info("Gid is: %s", GIDS[semester])
-    url_with_gid = f"{URL}&gid={GIDS[semester]}"
-    routine_data = await run_in_threadpool(get_routine_data, url_with_gid)
-    return routine_data
+@cache(expire=60 * 10)
+async def get_routine(
+    semester: Semester = "6",
+    section: Literal["A", "B", "C", "D", "E", "F", "G", "H"] = "B",
+):
+    sec: int = ord(section) - 64
+    sem = int(semester)
+    # TODO: Run in threadpool later
+    html = get_html_response(sem, sec)
+    # print(html)
+    data = get_structured_data(make_soup(html))
+
+    return data
 
 
 @app.get(
@@ -217,7 +121,7 @@ async def get_routine(semester: Semester) -> WeeklySchedule:
 async def get_sections(semester: Semester | None = None):
     if semester:
         return {
-            semester: Sections.get(semester, []),
+            semester: Sections.get(int(semester), []),
         }
 
     return Sections

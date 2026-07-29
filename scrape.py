@@ -2,13 +2,11 @@ import json
 from collections.abc import Iterable
 from os import environ
 
-import ua_generator
 from bs4 import BeautifulSoup
 from httpx import Client
 
 from auth import authenticate
 
-# client = Client(http2=True, follow_redirects=True)
 LOGIN_URL = "http://160.187.25.3:8083/front/student/login"
 ROUTINE_URL = (
     "http://160.187.25.3:8083/front/student/routine/load?semester_id=6&section_id=2"
@@ -21,7 +19,6 @@ if not VU_ID or not VU_PASSWORD:
 
 client = authenticate(VU_ID, VU_PASSWORD, LOGIN_URL, ROUTINE_URL)
 
-ua = ua_generator.generate(browser=["chrome", "edge"])
 
 with open("data/Teachers.json", "r") as f:
     teachers = json.load(f)
@@ -46,17 +43,15 @@ def get_teachers_info(name):
 
 def get_html_response(semester_id: int = 1, section_id: int = 1):
     global client
-    headers = ua.headers.get()
-    headers.update(
-        {
-            "User-Agent": (
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) "
-                "Chrome/138.0.0.0 Safari/537.36"
-            ),
-            "Cache-Control": "private, no-store, max-age=0",
-        }
-    )
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/138.0.0.0 Safari/537.36"
+        ),
+        "Cache-Control": "private, no-store, max-age=0",
+    }
+
     url = f"http://160.187.25.3:8083/front/student/routine/load?semester_id={semester_id}&section_id={section_id}"
 
     print("Requesting to: ", url)
@@ -146,7 +141,7 @@ def parse_routine_days(days):
                 "teacher_name": info.get("teacher"),
                 "course": slot.select_one(".course-code-chip").get_text(strip=True),
                 "course_name": info.get("course"),
-                "section": info.get("class"),  # rename if needed
+                "section": info.get("class"),
                 "room": info.get("room"),
                 "end_time": end_time,
                 "designation": teachers_info,

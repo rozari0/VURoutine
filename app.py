@@ -6,7 +6,7 @@ from typing import Literal, Optional
 from fastapi import FastAPI
 from fastapi.concurrency import run_in_threadpool
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import RedirectResponse
+from fastapi.responses import JSONResponse, RedirectResponse
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.inmemory import InMemoryBackend
 from fastapi_cache.decorator import cache
@@ -37,6 +37,10 @@ class ClassInfo(BaseModel):
     section: str | None = None
     room: str | None = None
     end_time: str | None = None
+
+
+class ErrorResponse(BaseModel):
+    error: str
 
 
 TimeSlot = Optional[ClassInfo]
@@ -94,6 +98,12 @@ async def redirect_to_docs():
 @app.get(
     "/cse/",
     response_model=WeeklySchedule,
+    responses={
+        400: {
+            "model": ErrorResponse,
+            "description": "Bad Request",
+        }
+    },
     tags=["CSE Routine"],
     summary="Get CSE Routine",
 )
@@ -102,12 +112,31 @@ async def get_routine(
     semester: Semester = "6",
     section: Literal["A", "B", "C", "D", "E", "F", "G", "H"] = "B",
 ):
-    sec: int = ord(section) - 64
     sem = int(semester)
-    # TODO: Run in threadpool later
-    html = get_html_response(sem, sec)
-    # print(html)
-    data = get_structured_data(make_soup(html))
+
+    print(Sections.get(sem, []))
+
+    if section not in Sections.get(sem, []):
+        return JSONResponse(
+            status_code=400,
+            content={
+                "error": f"Section {section} is not available for semester {semester}"
+            },
+        )
+
+    if sem < 1 or sem > 8:
+        return JSONResponse(
+            status_code=400,
+            content={
+                "error": f"Semester {semester} is not valid. It should be between 1 and 8."
+            },
+        )
+
+    sec: int = ord(section) - 64
+
+    html = await run_in_threadpool(get_html_response, sem, sec)
+    days = await run_in_threadpool(make_soup, html)
+    data = await run_in_threadpool(get_structured_data, days)
 
     return data
 
@@ -115,11 +144,25 @@ async def get_routine(
 @app.get(
     "/cse/sections/",
     response_model=dict[int, list[str]],
+    responses={
+        400: {
+            "model": ErrorResponse,
+            "description": "Bad Request",
+        }
+    },
     tags=["CSE Routine"],
     summary="Get Sections for a Semester",
 )
 async def get_sections(semester: Semester | None = None):
     if semester:
+        if int(semester) < 1 or int(semester) > 8:
+            return JSONResponse(
+                status_code=400,
+                content={
+                    "error": f"Semester {semester} is not valid. It should be between 1 and 8."
+                },
+            )
+
         return {
             semester: Sections.get(int(semester), []),
         }

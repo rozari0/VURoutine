@@ -114,21 +114,11 @@ async def get_routine(
 ):
     sem = int(semester)
 
-    print(Sections.get(sem, []))
-
     if section not in Sections.get(sem, []):
         return JSONResponse(
             status_code=400,
             content={
                 "error": f"Section {section} is not available for semester {semester}"
-            },
-        )
-
-    if sem < 1 or sem > 8:
-        return JSONResponse(
-            status_code=400,
-            content={
-                "error": f"Semester {semester} is not valid. It should be between 1 and 8."
             },
         )
 
